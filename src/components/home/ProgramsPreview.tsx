@@ -2,21 +2,31 @@ import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { ProgramCard } from "@/components/programs/ProgramCard";
-import { getProgramsByFamily, programFamilies, programsIntro } from "@/data/programs";
+import {
+  getProgramFamilies,
+  getProgramsByFamily,
+  getProgramsIntro,
+} from "@/data/localized";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/path";
 
-export function ProgramsPreview() {
+export function ProgramsPreview({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const families = getProgramFamilies(locale);
+
   return (
     <section className="bg-surface py-20 lg:py-28" aria-labelledby="programas-inicio">
       <Container>
         <SectionHeader
-          eyebrow="Programas AMELIA"
-          title="Acompañamos distintas etapas y necesidades"
-          description={programsIntro}
+          eyebrow={messages.home.programsEyebrow}
+          title={messages.home.programsTitle}
+          description={getProgramsIntro(locale)}
           id="programas-inicio"
         />
         <div className="mt-14 space-y-14">
-          {programFamilies.map((family) => {
-            const items = getProgramsByFamily(family.id);
+          {families.map((family) => {
+            const items = getProgramsByFamily(locale, family.id);
             return (
               <div key={family.id}>
                 <div className="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
@@ -29,7 +39,7 @@ export function ProgramsPreview() {
                 </div>
                 <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
                   {items.map((program) => (
-                    <ProgramCard key={program.slug} program={program} />
+                    <ProgramCard key={program.slug} program={program} locale={locale} />
                   ))}
                 </div>
               </div>
@@ -37,8 +47,8 @@ export function ProgramsPreview() {
           })}
         </div>
         <div className="mt-12 text-center">
-          <Button href="/programas" variant="outline">
-            Ver todos los programas
+          <Button href={localizedPath(locale, "/programas")} variant="outline">
+            {messages.home.programsAll}
           </Button>
         </div>
       </Container>

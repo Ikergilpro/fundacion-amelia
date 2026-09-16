@@ -1,10 +1,17 @@
 import Link from "next/link";
 import { Logo } from "@/components/brand/Logo";
 import { Container } from "@/components/ui/Container";
-import { footerColumns } from "@/data/navigation";
-import { site } from "@/data/site";
+import { strategicAlly } from "@/data/allies";
+import { getSiteCopy } from "@/data/localized";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { getFooterColumns } from "@/i18n/navigation";
 
-export function Footer() {
+export function Footer({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const copy = getSiteCopy(locale);
+  const footerColumns = getFooterColumns(locale);
+
   return (
     <footer className="bg-deep-navy text-ivory">
       <Container className="py-16">
@@ -12,12 +19,12 @@ export function Footer() {
           <div>
             <Logo inverted size="footer" />
             <p className="mt-5 max-w-sm text-sm leading-relaxed text-ivory/75">
-              {site.acronym}
+              {copy.acronym}
             </p>
             <p className="mt-4 font-serif text-lg text-light-gold">
-              {site.tagline}
+              {copy.tagline}
             </p>
-            <p className="mt-6 text-sm text-ivory/60">{site.location}</p>
+            <p className="mt-6 text-sm text-ivory/60">{messages.location}</p>
           </div>
           <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {footerColumns.map((column) => (
@@ -41,10 +48,18 @@ export function Footer() {
             ))}
           </div>
         </div>
-        <div className="mt-12 border-t border-white/10 pt-6 text-sm text-ivory/55">
+        <div className="mt-12 space-y-3 border-t border-white/10 pt-6 text-sm text-ivory/55">
+          <p>{messages.footer.notice}</p>
           <p>
-            Sitio informativo. Los formularios están preparados para una
-            conexión posterior; no envían aún expedientes ni donativos.
+            {messages.footer.allyPrefix}{" "}
+            <a
+              href={strategicAlly.href}
+              className="text-light-gold underline-offset-4 transition-colors hover:text-white hover:underline"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {strategicAlly.name}
+            </a>.
           </p>
         </div>
       </Container>

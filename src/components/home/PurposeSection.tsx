@@ -1,15 +1,20 @@
-import { purpose, purposeConcepts } from "@/data/site";
+import { getSiteCopy } from "@/data/localized";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/lib/icons";
 import type { IconName } from "@/types/content";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
 
-export function PurposeSection() {
+export function PurposeSection({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const { purpose, purposeConcepts } = getSiteCopy(locale);
+
   return (
     <section className="bg-navy py-20 text-ivory lg:py-24" aria-labelledby="proposito">
       <Container>
         <SectionHeader
-          eyebrow="Nuestro propósito"
+          eyebrow={messages.home.purposeEyebrow}
           title={purpose}
           tone="dark"
           id="proposito"

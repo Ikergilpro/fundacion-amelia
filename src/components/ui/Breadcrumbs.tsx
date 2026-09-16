@@ -10,14 +10,16 @@ type Crumb = {
 export function Breadcrumbs({
   items,
   tone = "light",
+  label,
 }: {
   items: Crumb[];
   tone?: "light" | "dark";
+  label: string;
 }) {
   const isDark = tone === "dark";
 
   return (
-    <nav aria-label="Miga de pan" className="mb-8">
+    <nav aria-label={label} className="mb-8">
       <ol
         className={cn(
           "flex flex-wrap items-center gap-1 text-sm",

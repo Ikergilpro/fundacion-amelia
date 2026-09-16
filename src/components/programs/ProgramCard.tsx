@@ -3,15 +3,22 @@ import type { Program } from "@/types/content";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/path";
 import { Icon } from "@/lib/icons";
 
-const statusLabel: Record<NonNullable<Program["status"]>, string> = {
-  active: "Programa",
-  development: "En desarrollo",
-  planned: "En diseño",
-};
+export function ProgramCard({
+  program,
+  locale,
+}: {
+  program: Program;
+  locale: Locale;
+}) {
+  const messages = getMessages(locale);
+  const href = localizedPath(locale, `/programas/${program.slug}`);
+  const status = program.status ?? "active";
 
-export function ProgramCard({ program }: { program: Program }) {
   return (
     <Card as="article" className="flex h-full flex-col">
       <div className="flex items-start justify-between gap-3">
@@ -19,11 +26,11 @@ export function ProgramCard({ program }: { program: Program }) {
           <Icon name={program.icon} />
         </div>
         {program.status && program.status !== "active" ? (
-          <Badge tone="gold">{statusLabel[program.status]}</Badge>
+          <Badge tone="gold">{messages.programCard.status[status]}</Badge>
         ) : null}
       </div>
       <h3 className="mt-5 font-serif text-2xl text-navy">
-        <Link href={`/programas/${program.slug}`} className="hover:text-wine">
+        <Link href={href} className="hover:text-wine">
           {program.name}
         </Link>
       </h3>
@@ -32,7 +39,7 @@ export function ProgramCard({ program }: { program: Program }) {
       </p>
       <p className="mt-3 flex-1 leading-relaxed text-muted">{program.summary}</p>
       <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-        Dirigido a
+        {messages.programCard.audience}
       </p>
       <div className="mt-2 flex flex-wrap gap-2">
         {program.audience.map((item) => (
@@ -40,7 +47,7 @@ export function ProgramCard({ program }: { program: Program }) {
         ))}
       </div>
       <p className="mt-4 text-xs font-semibold uppercase tracking-[0.16em] text-navy">
-        Actividades principales
+        {messages.programCard.activities}
       </p>
       <ul className="mt-2 space-y-1 text-sm text-muted">
         {program.activities.slice(0, 5).map((activity) => (
@@ -51,8 +58,8 @@ export function ProgramCard({ program }: { program: Program }) {
         ))}
       </ul>
       <div className="mt-6">
-        <Button href={`/programas/${program.slug}`} variant="outline" size="sm">
-          Conocer programa
+        <Button href={href} variant="outline" size="sm">
+          {messages.programCard.know}
         </Button>
       </div>
     </Card>

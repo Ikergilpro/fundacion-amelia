@@ -78,15 +78,23 @@ export function Logo({ className, inverted = false, size = "header" }: LogoProps
   );
 }
 
-export function LogoMark({ className }: { className?: string }) {
+export function LogoMark({
+  className,
+  href = "/",
+  label,
+}: {
+  className?: string;
+  href?: string;
+  label?: string;
+}) {
   return (
     <Link
-      href="/"
+      href={href}
       className={cn(
         "inline-flex items-center rounded-sm focus-visible:outline-gold",
         className,
       )}
-      aria-label={`${site.name}, ir al inicio`}
+      aria-label={label ?? `${site.name}`}
     >
       <Logo size="header" />
     </Link>

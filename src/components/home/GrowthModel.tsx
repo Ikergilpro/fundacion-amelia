@@ -1,17 +1,22 @@
-import { growthModel } from "@/data/growth";
+import { getGrowthModel } from "@/data/localized";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
 import { Icon } from "@/lib/icons";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
 
-export function GrowthModel() {
+export function GrowthModel({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const growthModel = getGrowthModel(locale);
+
   return (
     <section className="py-20 lg:py-28" aria-labelledby="modelo-trabajo">
       <Container>
         <SectionHeader
-          eyebrow="Modelo de trabajo"
-          title="Tres maneras de crecer sin perder coordinación"
-          description="AMELIA combina servicios propios, programas en alianza y una red de referencia."
+          eyebrow={messages.home.growthEyebrow}
+          title={messages.home.growthTitle}
+          description={messages.home.growthText}
           id="modelo-trabajo"
         />
         <ul className="mt-12 grid gap-6 lg:grid-cols-3">

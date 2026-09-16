@@ -1,12 +1,24 @@
-import { programFamilies, getProgramsByFamily } from "@/data/programs";
 import { ProgramCard } from "@/components/programs/ProgramCard";
+import {
+  getProgramFamilies,
+  getProgramsByFamily,
+} from "@/data/localized";
+import type { Locale } from "@/i18n/config";
 import { cn } from "@/lib/utils";
 
-export function ProgramGrid({ className }: { className?: string }) {
+export function ProgramGrid({
+  className,
+  locale,
+}: {
+  className?: string;
+  locale: Locale;
+}) {
+  const families = getProgramFamilies(locale);
+
   return (
     <div className={cn("space-y-16", className)}>
-      {programFamilies.map((family) => {
-        const items = getProgramsByFamily(family.id);
+      {families.map((family) => {
+        const items = getProgramsByFamily(locale, family.id);
         return (
           <section
             key={family.id}
@@ -24,7 +36,7 @@ export function ProgramGrid({ className }: { className?: string }) {
             </div>
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {items.map((program) => (
-                <ProgramCard key={program.slug} program={program} />
+                <ProgramCard key={program.slug} program={program} locale={locale} />
               ))}
             </div>
           </section>

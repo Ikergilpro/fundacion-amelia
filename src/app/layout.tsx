@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Source_Sans_3 } from "next/font/google";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
-import { SkipLink } from "@/components/layout/SkipLink";
+import { headers } from "next/headers";
 import { site } from "@/data/site";
-import { rootMetadata } from "@/lib/seo";
+import { isLocale, localeHtmlLang } from "@/i18n/config";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -19,34 +17,24 @@ const sourceSans = Source_Sans_3({
   display: "swap",
 });
 
-export const metadata: Metadata = rootMetadata;
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  icons: {
+    icon: "/favicon.svg",
+  },
+};
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const headerLocale = (await headers()).get("x-locale") ?? "es";
+  const lang = isLocale(headerLocale) ? localeHtmlLang[headerLocale] : "es-MX";
+
   return (
     <html
-      lang="es-MX"
+      lang={lang}
       className={`${playfair.variable} ${sourceSans.variable} h-full scroll-smooth antialiased`}
     >
       <body className="flex min-h-full flex-col bg-ivory font-sans text-ink">
-        <SkipLink />
-        <Navbar />
-        <main id="contenido" className="flex-1">
-          {children}
-        </main>
-        <Footer />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "NGO",
-              name: site.name,
-              slogan: site.tagline,
-              description: site.seo.description,
-              areaServed: site.location,
-            }),
-          }}
-        />
+        {children}
       </body>
     </html>
   );

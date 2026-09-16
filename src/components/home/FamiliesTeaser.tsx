@@ -2,17 +2,23 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { familyPaths } from "@/data/content";
+import { getFamilyPaths } from "@/data/localized";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/path";
 import { Icon } from "@/lib/icons";
 
-export function FamiliesTeaser() {
+export function FamiliesTeaser({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const familyPaths = getFamilyPaths(locale);
+
   return (
     <section className="py-20 lg:py-28" aria-labelledby="familias-inicio">
       <Container>
         <SectionHeader
-          eyebrow="Familias"
-          title="No tienen que recorrer este camino solos."
-          description="Elige el punto de partida que más se parece a lo que están viviendo ahora."
+          eyebrow={messages.home.familiesEyebrow}
+          title={messages.home.familiesTitle}
+          description={messages.home.familiesText}
           id="familias-inicio"
         />
         <ul className="mt-10 grid gap-4 md:grid-cols-2">
@@ -26,7 +32,7 @@ export function FamiliesTeaser() {
                   <h3 className="font-serif text-xl text-navy">{path.title}</h3>
                 </div>
                 <div className="mt-5">
-                  <Button href={path.href} variant="outline" size="sm">
+                  <Button href={localizedPath(locale, path.href)} variant="outline" size="sm">
                     {path.cta}
                   </Button>
                 </div>

@@ -5,20 +5,28 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { X } from "lucide-react";
 import { Logo } from "@/components/brand/Logo";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
 import { Button } from "@/components/ui/Button";
-import { ctaPrimary, ctaSecondary, primaryNav } from "@/data/navigation";
-import { site } from "@/data/site";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { getCtas, getPrimaryNav } from "@/i18n/navigation";
+import { stripLocaleFromPathname } from "@/i18n/path";
 import { cn } from "@/lib/utils";
 
 type MobileMenuProps = {
+  locale: Locale;
   open: boolean;
   onClose: () => void;
 };
 
-export function MobileMenu({ open, onClose }: MobileMenuProps) {
+export function MobileMenu({ locale, open, onClose }: MobileMenuProps) {
   const pathname = usePathname();
   const closeRef = useRef<HTMLButtonElement>(null);
   const lastFocused = useRef<HTMLElement | null>(null);
+  const messages = getMessages(locale);
+  const primaryNav = getPrimaryNav(locale);
+  const ctas = getCtas(locale);
+  const { path } = stripLocaleFromPathname(pathname);
 
   useEffect(() => {
     if (!open) return;
@@ -51,13 +59,13 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
       <button
         type="button"
         className="absolute inset-0 bg-deep-navy/50"
-        aria-label="Cerrar menú"
+        aria-label={messages.closeMenu}
         onClick={onClose}
       />
       <div className="absolute inset-y-0 right-0 flex w-full max-w-md flex-col bg-ivory shadow-2xl">
         <div className="flex items-center justify-between border-b border-navy/10 px-5 py-4">
           <p id="menu-movil-titulo" className="sr-only">
-            Menú de navegación
+            {messages.navTitle}
           </p>
           <Logo />
           <button
@@ -65,7 +73,7 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
             type="button"
             onClick={onClose}
             className="flex size-11 items-center justify-center rounded-full text-navy hover:bg-navy/5"
-            aria-label="Cerrar menú"
+            aria-label={messages.closeMenu}
           >
             <X className="size-5" aria-hidden="true" />
           </button>
@@ -73,10 +81,11 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         <nav className="flex-1 overflow-y-auto px-5 py-6">
           <ul className="space-y-1">
             {primaryNav.map((item) => {
+              const itemPath = stripLocaleFromPathname(item.href).path;
               const active =
-                item.href === "/"
-                  ? pathname === "/"
-                  : pathname === item.href || pathname.startsWith(`${item.href}/`);
+                itemPath === "/"
+                  ? path === "/"
+                  : path === itemPath || path.startsWith(`${itemPath}/`);
               return (
                 <li key={item.href}>
                   <Link
@@ -96,18 +105,21 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
           </ul>
         </nav>
         <div className="space-y-3 border-t border-navy/10 px-5 py-5">
-          <Button href={ctaPrimary.href} className="w-full" onClick={onClose}>
-            {ctaPrimary.label}
+          <div className="flex justify-center pb-2">
+            <LanguageSwitcher locale={locale} />
+          </div>
+          <Button href={ctas.primary.href} className="w-full" onClick={onClose}>
+            {ctas.primary.label}
           </Button>
           <Button
-            href={ctaSecondary.href}
+            href={ctas.secondary.href}
             variant="secondary"
             className="w-full"
             onClick={onClose}
           >
-            {ctaSecondary.label}
+            {ctas.secondary.label}
           </Button>
-          <p className="text-center text-sm text-muted">{site.location}</p>
+          <p className="text-center text-sm text-muted">{messages.location}</p>
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import { faqs } from "@/data/faqs";
 import { Accordion } from "@/components/ui/Accordion";
+import type { FaqItem } from "@/types/content";
 
 export function FAQ({
   items = faqs,
 }: {
-  items?: { question: string; answer: string }[];
+  items?: FaqItem[];
 }) {
   return (
     <Accordion

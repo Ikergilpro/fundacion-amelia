@@ -1,15 +1,21 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { SectionHeader } from "@/components/ui/SectionHeader";
-import { subsidyProgram } from "@/data/content";
+import { getSubsidyProgram } from "@/data/localized";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/path";
 
-export function SubsidiesTeaser() {
+export function SubsidiesTeaser({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const subsidyProgram = getSubsidyProgram(locale);
+
   return (
     <section className="bg-ivory py-20 lg:py-24" aria-labelledby="subsidios-inicio">
       <Container>
         <div className="rounded-3xl border border-gold/30 bg-white px-6 py-10 sm:px-10 lg:px-14">
           <SectionHeader
-            eyebrow="Subsidios AMELIA"
+            eyebrow={messages.nav.subsidies}
             title={subsidyProgram.title}
             description={subsidyProgram.intro}
             id="subsidios-inicio"
@@ -43,7 +49,9 @@ export function SubsidiesTeaser() {
             </div>
           </div>
           <div className="mt-8">
-            <Button href="/subsidios">Conocer el programa de subsidios</Button>
+            <Button href={localizedPath(locale, "/subsidios")}>
+              {messages.home.subsidiesCta}
+            </Button>
           </div>
         </div>
       </Container>

@@ -1,10 +1,14 @@
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import { PhotoSlot } from "@/components/ui/PhotoSlot";
-import { getProgram } from "@/data/programs";
+import { getProgram } from "@/data/localized";
+import type { Locale } from "@/i18n/config";
+import { getMessages } from "@/i18n/messages";
+import { localizedPath } from "@/i18n/path";
 
-export function MovementTeaser() {
-  const program = getProgram("amelia-en-movimiento");
+export function MovementTeaser({ locale }: { locale: Locale }) {
+  const messages = getMessages(locale);
+  const program = getProgram(locale, "amelia-en-movimiento");
   if (!program) return null;
 
   return (
@@ -13,15 +17,15 @@ export function MovementTeaser() {
         <PhotoSlot
           tone="movement"
           className="min-h-[320px] rounded-none lg:min-h-full"
-          alt="Niñas y niños participan en una actividad física al aire libre."
-          label="Fotografía por incorporar: juego, deporte o movimiento en comunidad, con alegría y participación."
+          alt={messages.home.movementPhotoAlt}
+          label={messages.home.movementPhotoLabel}
         />
         <Container className="flex flex-col justify-center py-16 lg:py-24">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-light-gold">
             {program.name}
           </p>
           <h2 id="movimiento-inicio" className="mt-3 font-serif text-3xl sm:text-4xl">
-            Deporte y bienestar como camino de participación
+            {messages.home.movementTitle}
           </h2>
           <p className="mt-4 max-w-xl text-ivory/80">{program.objective}</p>
           {program.highlight ? (
@@ -30,8 +34,11 @@ export function MovementTeaser() {
             </blockquote>
           ) : null}
           <div className="mt-8">
-            <Button href="/programas/amelia-en-movimiento" variant="gold">
-              Conocer AMELIA en Movimiento
+            <Button
+              href={localizedPath(locale, "/programas/amelia-en-movimiento")}
+              variant="gold"
+            >
+              {messages.home.movementCta}
             </Button>
           </div>
         </Container>
