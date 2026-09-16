@@ -107,7 +107,7 @@ const es = {
     purposeEyebrow: "Nuestro propósito",
     historyCta: "Conoce nuestra historia",
     historyPhotoAlt:
-      "Una persona adulta y un niño comparten una actividad cotidiana en casa.",
+      "Una familia sonríe junta en casa.",
     historyPhotoLabel:
       "Fotografía por incorporar: vida cotidiana en familia, sin estereotipos ni estética clínica.",
     programsEyebrow: "Programas AMELIA",
@@ -221,6 +221,8 @@ const es = {
     seo: "Hablemos. Fundación AMELIA A.C. recibe mensajes de familias, profesionales, empresas, escuelas y universidades en Chihuahua.",
     heading: "Hablemos",
     text: "Cuéntanos si escribes como familia, profesional, empresa, fundación, escuela, universidad o voluntariado. El envío electrónico se habilitará cuando exista el canal institucional.",
+    direct: "Contacto institucional",
+    emailLabel: "Correo",
   },
   privacyPage: {
     title: "Aviso de privacidad",
@@ -353,7 +355,7 @@ const en: typeof es = {
     purposeEyebrow: "Our purpose",
     historyCta: "Read our story",
     historyPhotoAlt:
-      "An adult and a child share an everyday activity at home.",
+      "A family smiles together at home.",
     historyPhotoLabel:
       "Photograph to be added: everyday family life, without stereotypes or a clinical look.",
     programsEyebrow: "AMELIA programs",
@@ -467,6 +469,8 @@ const en: typeof es = {
     seo: "Let’s talk. Fundación AMELIA A.C. receives messages from families, professionals, companies, schools and universities in Chihuahua.",
     heading: "Let’s talk",
     text: "Tell us whether you are writing as a family, professional, company, foundation, school, university or volunteer. Electronic submission will be enabled when the institutional channel exists.",
+    direct: "Institutional contact",
+    emailLabel: "Email",
   },
   privacyPage: {
     title: "Privacy notice",

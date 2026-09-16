@@ -6,9 +6,14 @@ export const site = {
     "Acompañamiento Multidisciplinario, Empatía, Lenguajes, Inclusión y Autonomía",
   tagline: "Cada forma de comunicar abre un camino.",
   location: "Chihuahua, México",
+  contact: {
+    name: "Gil Elias",
+    role: "Director",
+    email: "gil.elias@ameliaac.org",
+  },
   /**
    * Sustituir cuando exista dominio institucional.
-   * No inventar correo, teléfono ni domicilio.
+   * No inventar teléfono ni domicilio.
    */
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   /**

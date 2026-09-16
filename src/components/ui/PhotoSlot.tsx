@@ -6,6 +6,7 @@ type PhotoSlotProps = {
   label?: string;
   src?: string;
   className?: string;
+  imageClassName?: string;
   priority?: boolean;
   tone?: "warm" | "navy" | "movement";
 };
@@ -19,6 +20,7 @@ export function PhotoSlot({
   label,
   src,
   className,
+  imageClassName,
   priority = false,
   tone = "warm",
 }: PhotoSlotProps) {
@@ -37,7 +39,7 @@ export function PhotoSlot({
           fill
           priority={priority}
           sizes="(min-width: 1024px) 50vw, 100vw"
-          className="object-cover object-[center_70%]"
+          className={cn("object-cover", imageClassName ?? "object-[center_70%]")}
         />
       ) : (
         <>

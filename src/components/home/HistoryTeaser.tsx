@@ -28,8 +28,10 @@ export function HistoryTeaser({ locale }: { locale: Locale }) {
           </div>
         </div>
         <PhotoSlot
+          src="/images/photos/historia-familia.jpg"
           alt={messages.home.historyPhotoAlt}
-          label={messages.home.historyPhotoLabel}
+          className="min-h-[280px] aspect-[4/3] lg:min-h-[420px]"
+          imageClassName="object-[center_40%]"
         />
       </Container>
     </section>

@@ -47,6 +47,14 @@ export default async function LocaleLayout({
             slogan: copy.tagline,
             description: copy.seo.description,
             areaServed: site.location,
+            email: site.contact.email,
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: site.contact.role,
+              email: site.contact.email,
+              name: site.contact.name,
+              availableLanguage: ["es", "en"],
+            },
             inLanguage: localeHtmlLang[locale],
           }),
         }}

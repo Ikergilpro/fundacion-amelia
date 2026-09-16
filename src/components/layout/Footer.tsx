@@ -22,7 +22,15 @@ export function Footer({ locale }: { locale: Locale }) {
               {copy.acronym}
             </p>
             <p className="mt-4 font-serif text-lg text-light-gold">
-              {copy.tagline}
+              {messages.footer.allyPrefix}{" "}
+              <a
+                href={strategicAlly.href}
+                className="text-light-gold underline decoration-light-gold/70 underline-offset-4 transition-colors hover:text-white hover:decoration-white"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {strategicAlly.name}
+              </a>.
             </p>
             <p className="mt-6 text-sm text-ivory/60">{messages.location}</p>
           </div>
@@ -48,19 +56,8 @@ export function Footer({ locale }: { locale: Locale }) {
             ))}
           </div>
         </div>
-        <div className="mt-12 space-y-3 border-t border-white/10 pt-6 text-sm text-ivory/55">
+        <div className="mt-12 border-t border-white/10 pt-6 text-sm text-ivory/55">
           <p>{messages.footer.notice}</p>
-          <p>
-            {messages.footer.allyPrefix}{" "}
-            <a
-              href={strategicAlly.href}
-              className="text-light-gold underline-offset-4 transition-colors hover:text-white hover:underline"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              {strategicAlly.name}
-            </a>.
-          </p>
         </div>
       </Container>
     </footer>
