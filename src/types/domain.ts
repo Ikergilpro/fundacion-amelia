@@ -1,6 +1,7 @@
 /**
- * Entidades previstas para una futura conexión con Supabase.
- * No se implementan tablas ni clientes en este entregable informativo.
+ * Entidades previstas para tablas de Supabase.
+ * El cliente ya existe en src/lib/supabase/client.ts.
+ * Las tablas no se crean todavía: el sitio sigue siendo informativo.
  */
 export type FutureUserRole =
   | "family"
