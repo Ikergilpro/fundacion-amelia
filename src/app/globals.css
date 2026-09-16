@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+:root {
+  --amelia-navy: #102a4c;
+  --amelia-deep-navy: #071e3d;
+  --amelia-wine: #9e1b32;
+  --amelia-burgundy: #7e1627;
+  --amelia-gold: #c69a45;
+  --amelia-light-gold: #e6c77a;
+  --amelia-ivory: #faf8f2;
+  --amelia-white: #ffffff;
+  --amelia-gray: #667085;
+  --amelia-light-gray: #f4f6f8;
+  --amelia-ink: #1c2b3d;
+}
+
+@theme inline {
+  --color-navy: var(--amelia-navy);
+  --color-deep-navy: var(--amelia-deep-navy);
+  --color-wine: var(--amelia-wine);
+  --color-burgundy: var(--amelia-burgundy);
+  --color-gold: var(--amelia-gold);
+  --color-light-gold: var(--amelia-light-gold);
+  --color-ivory: var(--amelia-ivory);
+  --color-muted: var(--amelia-gray);
+  --color-surface: var(--amelia-light-gray);
+  --color-ink: var(--amelia-ink);
+  --font-sans: var(--font-source-sans);
+  --font-serif: var(--font-playfair);
+  --shadow-soft: 0 8px 30px rgb(16 42 76 / 0.06);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--amelia-ivory);
+  color: var(--amelia-ink);
+  font-family: var(--font-source-sans), "Source Sans 3", sans-serif;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--amelia-gold) 35%, white);
+  color: var(--amelia-deep-navy);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amelia-gold);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 100;
+  border-radius: 0.5rem;
+  background: var(--amelia-navy);
+  color: white;
+  padding: 0.75rem 1rem;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
